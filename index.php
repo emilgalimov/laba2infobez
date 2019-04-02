@@ -1,9 +1,4 @@
 <?php
-
-    
-
-    
-
     main();
     function main(){
         $permissionKeys=['read','write','all','shareRights','none'];
@@ -57,8 +52,7 @@
             ],
 
         ];
-    }
-        
+    } 
         if(!$_GET){
             foreach($_SESSION['users'] as $id=>$user){
                 echo('<a href=/?id='.$id.'>'.$user['name'].'</a></br>');
@@ -89,10 +83,5 @@
                 $_SESSION['users'][$_GET['user']]['rights'][$_GET['file']]=$_SESSION['users'][$_GET['id']]['rights'][$_GET['file']];
             }
         }
-
-
         }
-    
-
-
     }
