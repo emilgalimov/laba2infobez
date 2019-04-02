@@ -2,10 +2,11 @@
 
     
 
-    $permissionKeys=['read','write','all','shareRights','none'];
+    
 
     main();
     function main(){
+        $permissionKeys=['read','write','all','shareRights','none'];
         session_start();
         if (!isset($_SESSION['users'])){
         $_SESSION['users']=[
@@ -69,9 +70,15 @@
             echo('<h1>'.$user['name'].'</h1>');
             foreach($user['rights'] as $obj => $rights){
                 echo('<h2>'.$obj.'</h2>');
+                if(!in_array('all',$rights)){
                 foreach($rights as $right){
                 echo('<a href=/?id='.$id.'&file='.$obj.'&task='.$right.'>'.$right.' </a></br>');
                 }
+            }else{
+                foreach($permissionKeys as $right){
+                    echo('<a href=/?id='.$id.'&file='.$obj.'&task='.$right.'>'.$right.' </a></br>');
+                }
+            }
             }
         }else{
             if($_GET['task']=='shareRights' && !isset($_GET['user'])){
