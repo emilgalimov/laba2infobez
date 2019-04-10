@@ -75,12 +75,27 @@
             }
             }
         }else{
+            if(isset($_GET['right'])){
+                array_push($_SESSION['users'][$_GET['user']]['rights'][$_GET['file']],$_GET['right']);
+            }
+
             if($_GET['task']=='shareRights' && !isset($_GET['user'])){
                 foreach($_SESSION['users'] as $key=>$user){
                     echo('<a href=/?id='.$_GET['id'].'&file='.$_GET['file'].'&task='.$_GET['task'].'&user='.$key.'>'.$user['name'].' </a></br>');
                 }
             }else{
-                $_SESSION['users'][$_GET['user']]['rights'][$_GET['file']]=$_SESSION['users'][$_GET['id']]['rights'][$_GET['file']];
+               // $_SESSION['users'][$_GET['user']]['rights'][$_GET['file']]=$_SESSION['users'][$_GET['id']]['rights'][$_GET['file']];
+
+            if(in_array('all',$_SESSION['users'][$_GET['id']]['rights'][$_GET['file']])){
+                foreach($permissionKeys as $right){
+                echo('<a href=/?id='.$_GET['id'].'&file='.$_GET['file'].'&task='.$_GET['task'].'&user='.$_GET['user'].'&right='.$right.'>'.$right.' </a></br>');
+                }
+            }else{
+               foreach($_SESSION['users'][$_GET['id']]['rights'][$_GET['file']] as $right){
+                echo('<a href=/?id='.$_GET['id'].'&file='.$_GET['file'].'&task='.$_GET['task'].'&user='.$_GET['user'].'&right='.$right.'>'.$right.' </a></br>');
+                
+            }
+            }
             }
         }
         }
